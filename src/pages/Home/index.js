@@ -200,7 +200,6 @@ import classNames from "classnames/bind";
 import styles from "./Home.module.scss";
 import { Link } from "react-router-dom";
 import { FaFire, FaEye, FaHeart } from "react-icons/fa";
-import debounce from "lodash.debounce";
 
 const cx = classNames.bind(styles);
 
@@ -293,24 +292,9 @@ const data = [
     // Thêm các mục dữ liệu khác tại đây
 ];
 
-// const Home = () => {
-//     // const [startIndex, setStartIndex] = useState(0);
-//     // const itemsToShow = 6;
-
-//     // const handleNext = () => {
-//     //     if (startIndex + itemsToShow < data.length) {
-//     //         setStartIndex(startIndex + 1);
-//     //     }
-//     // };
-
-//     // const handlePrevious = () => {
-//     //     if (startIndex > 0) {
-//     //         setStartIndex(startIndex - 1);
-//     //     }
-//     // };
 const Home = () => {
     const [startIndex, setStartIndex] = useState(0);
-    const [itemsToShow, setItemsToShow] = useState(7);
+    const itemsToShow = 6;
 
     const handleNext = () => {
         if (startIndex + itemsToShow < data.length) {
@@ -323,34 +307,49 @@ const Home = () => {
             setStartIndex(startIndex - 1);
         }
     };
+    // const Home = () => {
+    //     const [startIndex, setStartIndex] = useState(0);
+    //     const [itemsToShow, setItemsToShow] = useState(7);
 
-    useEffect(() => {
-        const handleResize = debounce(() => {
-            requestAnimationFrame(() => {
-                if (window.innerWidth <= 600) {
-                    setItemsToShow(2);
-                } else {
-                    setItemsToShow(7);
-                }
-            });
-        }, 200);
+    //     const handleNext = () => {
+    //         if (startIndex + itemsToShow < data.length) {
+    //             setStartIndex(startIndex + 1);
+    //         }
+    //     };
 
-        // Sử dụng ResizeObserver để lắng nghe thay đổi kích thước
-        const observer = new ResizeObserver(() => {
-            handleResize();
-        });
+    //     const handlePrevious = () => {
+    //         if (startIndex > 0) {
+    //             setStartIndex(startIndex - 1);
+    //         }
+    //     };
 
-        // Quan sát body để phát hiện thay đổi kích thước
-        observer.observe(document.body);
+    //     useEffect(() => {
+    //         const handleResize = debounce(() => {
+    //             requestAnimationFrame(() => {
+    //                 if (window.innerWidth <= 600) {
+    //                     setItemsToShow(2);
+    //                 } else {
+    //                     setItemsToShow(7);
+    //                 }
+    //             });
+    //         }, 200);
 
-        // Gọi handleResize ngay lập tức để thiết lập đúng số phần tử khi tải trang
-        handleResize();
+    //         // Sử dụng ResizeObserver để lắng nghe thay đổi kích thước
+    //         const observer = new ResizeObserver(() => {
+    //             handleResize();
+    //         });
 
-        // Cleanup event listener khi component bị unmount
-        return () => {
-            observer.disconnect();
-        };
-    }, []);
+    //         // Quan sát body để phát hiện thay đổi kích thước
+    //         observer.observe(document.body);
+
+    //         // Gọi handleResize ngay lập tức để thiết lập đúng số phần tử khi tải trang
+    //         handleResize();
+
+    //         // Cleanup event listener khi component bị unmount
+    //         return () => {
+    //             observer.disconnect();
+    //         };
+    //     }, []);
 
     return (
         <div className={cx("content")}>
